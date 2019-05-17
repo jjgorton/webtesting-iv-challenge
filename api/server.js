@@ -7,7 +7,7 @@ const server = express();
 server.use(express.json());
 
 server.get('/', (req, res) => {
-	res.send(`
+	res.status(200).send(`
         <h1>Star Trek: The Next Generation - API</h1>
     `);
 });
