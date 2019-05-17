@@ -10,4 +10,26 @@ describe('server', () => {
 
 		expect(response.status).toEqual(expectedStatusCode);
 	});
+
+	it('should return 200 OK', (done) => {
+		request(server).get('/').then((res) => {
+			expect(res.status).toEqual(200);
+			done();
+		});
+	});
+
+	describe('GET(/api/crew)', () => {
+		it('should return 200 OK', async () => {
+			const res = await request(server).get('/api/crew');
+			expect(res.status).toEqual(200);
+		});
+	});
+
+	describe('POST(/api/crew)', () => {
+		it('should return status(201)', () => {
+			request(server).post('/api/crew').then((res) => {
+				expect(res.status).toEqual(201);
+			});
+		});
+	});
 });

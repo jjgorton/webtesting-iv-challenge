@@ -16,4 +16,15 @@ router.get('/', (req, res) => {
 		});
 });
 
+router.post('/', (req, res) => {
+	db
+		.insert(req.body)
+		.then((crew) => {
+			res.status(201).json(crew);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
+});
+
 module.exports = router;
