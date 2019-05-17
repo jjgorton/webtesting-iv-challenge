@@ -2,7 +2,15 @@ const request = require('supertest');
 
 const server = require('./server');
 
+const db = require('../data/dbConfig');
+
+const TNG = require('./crew/crew-model');
+
 describe('server', () => {
+	beforeEach(async () => {
+		await db('TNG').truncate();
+	});
+
 	it('should return an OK status code from the index route', async () => {
 		const expectedStatusCode = 200;
 
@@ -27,8 +35,19 @@ describe('server', () => {
 
 	describe('POST(/api/crew)', () => {
 		it('should return status(201)', () => {
-			request(server).post('/api/crew').then((res) => {
-				expect(res.status).toEqual(201);
+			return request(server)
+				.post('/api/crew')
+				.send({ name: 'Troy', species: 'Betazoid/Human', rank: 'Counselor/Commander' })
+				.then((res) => {
+					expect(res.status).toEqual(201);
+				});
+		});
+	});
+
+	describe('DELETE(/api/crew)', () => {
+		it('should return status(204)', () => {
+			return request(server).delete('/api/crew/1').then((res) => {
+				expect(res.status).toEqual(204);
 			});
 		});
 	});

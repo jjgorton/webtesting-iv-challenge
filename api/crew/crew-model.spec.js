@@ -14,4 +14,12 @@ describe('TNG model', () => {
 			expect(tbl).toHaveLength(1);
 		});
 	});
+
+	describe('delete()', () => {
+		it('should delete crew', async () => {
+			await TNG.remove('1');
+			const tbl = await db('TNG');
+			expect(tbl).toHaveLength(0);
+		});
+	});
 });

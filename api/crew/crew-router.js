@@ -27,4 +27,15 @@ router.post('/', (req, res) => {
 		});
 });
 
+router.delete('/:id', (req, res) => {
+	db
+		.remove(req.params.id)
+		.then((resp) => {
+			res.status(204).json({ message: 'crew member deleted' });
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
+});
+
 module.exports = router;

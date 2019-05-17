@@ -2,7 +2,8 @@ const db = require('../../data/dbConfig');
 
 module.exports = {
 	get,
-	insert
+	insert,
+	remove
 };
 
 function get() {
@@ -12,5 +13,9 @@ function get() {
 async function insert(crew) {
 	const [ id ] = await db('TNG').insert(crew, 'id');
 
-	return db('TNG').where({ id }).first();
+	return db('TNG').where({ id: id }).first();
+}
+
+function remove(id) {
+	return db('TNG').where({ id }).del();
 }
